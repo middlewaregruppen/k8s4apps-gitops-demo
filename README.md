@@ -18,16 +18,24 @@ removes them at the end of a course.
 ## What is in here
 
 ```
-chart/                 the Helm chart you write in the Helm lab (empty until you do)
+chart/                 the reference chart: what the Helm lab builds, finished
+values-prod.yaml       per-environment overrides, as the lab leaves them
 apps/guestbook/        the same application, delivered with kustomize instead
 apps/guestbook-scaled/ the same, with kustomize overlays
-values-prod.yaml       per-environment overrides for the chart
 ```
 
-`chart/` is where you work, and it is deliberately empty at the start. The Helm lab
-has you create `Chart.yaml`, `values.yaml` and `templates/` in it, the way you would
-lay out any chart: the chart is the root of its own directory, not a subdirectory of
-a `charts/` folder.
+`chart/` on `main` is the **finished** chart the Helm lab has you write. It is here as
+a reference, not as a starting point: the lab creates `chart/` from nothing, and its
+checkpoints require *your* chart to work, so copying this one would pass them without
+teaching you anything.
+
+If your chart renders something you cannot explain, diff it against this one. The
+shape is the point: the chart is the root of its own directory, with `Chart.yaml`
+directly inside it, not a subdirectory of a `charts/` folder.
+
+This is a second copy of what `labs/helm/steps.md` builds. If the lab changes, this
+should be re-generated from it rather than edited independently -- otherwise the
+reference stops being one.
 
 ## The two labs
 
