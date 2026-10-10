@@ -18,16 +18,22 @@ removes them at the end of a course.
 ## What is in here
 
 ```
-apps/guestbook/        the reference application — a Deployment, a Service, a ConfigMap
+chart/                 the Helm chart you write in the Helm lab (empty until you do)
+apps/guestbook/        the same application, delivered with kustomize instead
 apps/guestbook-scaled/ the same, with kustomize overlays
-charts/app/            where the Helm lab's chart lands (see charts/README.md)
+values-prod.yaml       per-environment overrides for the chart
 ```
+
+`chart/` is where you work, and it is deliberately empty at the start. The Helm lab
+has you create `Chart.yaml`, `values.yaml` and `templates/` in it, the way you would
+lay out any chart: the chart is the root of its own directory, not a subdirectory of
+a `charts/` folder.
 
 ## The two labs
 
-**The Helm lab** ends by copying the chart a student has just written into `charts/app/`
-on their branch and pushing it.
+**The Helm lab** has each student write the chart directly in `chart/` on their branch
+and push it. There is no copy step: the chart is written where it will be read from.
 
-**The ArgoCD lab** points an `Application` at that path. ArgoCD sees the `Chart.yaml`,
+**The ArgoCD lab** points an `Application` at `chart`. ArgoCD sees the `Chart.yaml`,
 renders the chart, and applies it — so the artifact the student packaged in one lab is
 the artifact delivered in the next one, with no build step in between.
