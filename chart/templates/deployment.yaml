@@ -13,6 +13,12 @@ spec:
     metadata:
       labels:
         {{- include "app.labels" . | nindent 8 }}
+      # A Deployment rolls when its pod template changes, and a ConfigMap's
+      # contents are not part of the template -- only its name is. Hashing the
+      # rendered ConfigMap into the template closes that gap: change the config
+      # and the hash changes, so the Pods are replaced.
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       containers:
         - name: web
@@ -24,3 +30,11 @@ spec:
             httpGet:
               path: /
               port: http
+          volumeMounts:
+            - name: config
+              mountPath: /etc/web
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "app.fullname" . }}-config

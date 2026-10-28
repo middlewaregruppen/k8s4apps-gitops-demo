@@ -6,3 +6,8 @@ image:
 
 service:
   port: 80
+
+# Settings the application reads from its ConfigMap rather than from its image.
+config:
+  greeting: "Hello from the chart"
+  logLevel: info
