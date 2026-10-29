@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: nginxinc/nginx-unprivileged
+  tag: 1.27-alpine
+
+service:
+  port: 80
+
+# Settings the application reads from its ConfigMap rather than from its image.
+config:
+  greeting: "Hello from the chart"
+  logLevel: info
